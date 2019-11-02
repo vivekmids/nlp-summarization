@@ -11,12 +11,12 @@
 * basic encoder-decoder with word2vec embeddings + bidirectional 
 
 ## Reference: 
-A. Glove embeddings (https://nlp.stanford.edu/projects/glove/) - for now, using glove.42B.300d.zip
-B. word2vec embeddings (?) 
+1. Glove embeddings (https://nlp.stanford.edu/projects/glove/) - for now, using glove.42B.300d.zip
+2. word2vec embeddings (?) 
 
 ## Current GPU set-up 
-A. Vivian's GPU on GCP has tensorflow 1.14 on it. May update as needed 
-B. IBM? 
+1. Vivian's GPU on GCP has tensorflow 1.14 on it. May update as needed 
+2. IBM? 
 
 ## Paper: 
 1. https://arxiv.org/pdf/1512.01712.pdf
