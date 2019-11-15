@@ -13,6 +13,7 @@ import pandas as pd
 import pickle
 from time import time
 from sklearn.model_selection import train_test_split
+import tensorflow as tf
 from tensorflow.keras.preprocessing.text import Tokenizer 
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 #cleanfilename = 'cleandatamini.pkl'
@@ -169,7 +170,7 @@ from tensorflow.keras import backend as K
 from tensorflow.keras.utils import multi_gpu_model
 
 K.clear_session() 
-hidden_units = 600 #this is 600 in the paper. To be changed later.
+hidden_units = 300 #this is 600 in the paper. To be changed later.
 
 
 # In[41]:
@@ -251,7 +252,8 @@ decoder_outputs = decoder_dense(decoder_concat_input)
 
 
 # Define the model
-model = Model([encoder_inputs, decoder_inputs], decoder_outputs) 
+with tf.device('/cpu:0'):
+    model = Model([encoder_inputs, decoder_inputs], decoder_outputs) 
 model.summary()
 
 
@@ -268,8 +270,8 @@ tensorboard = TensorBoard(log_dir="logs/{}".format(time()))
 
 history=parallel_model.fit([x_train,np.hstack((np.zeros((y_train.shape[0],1)), y_train[:, :-1]))], 
                   y_train,
-                  epochs=10,
-                  batch_size=600, 
+                  epochs=8,
+                  batch_size=275, 
                   callbacks=[tensorboard],
                   validation_data=([x_dev,np.hstack((np.zeros((y_dev.shape[0],1)), y_dev[:, :-1]))], y_dev)
                  )
