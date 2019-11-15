@@ -108,10 +108,10 @@ def text_cleaner(text):
     newString = ' '.join([contraction_mapping[t] if t in contraction_mapping else t for t in newString.split(" ")])  
     # Step 5: get rid of the \n stuff 
     newString = re.sub(r"'s\n","",newString)
-    # Step 6: anything that is a number, get rid of it 
-    newString = re.sub("\d", " ", newString) 
+    # Step 6: get rid of most special characters
+    newString = re.sub(r'[?$()_\-—\d{}/#&%<>=@\*~:;\\\+\']',r' ', newString) 
     # Step 7: separating punctuations so they are their own tokens
-    newString = re.sub(r'([,.!;:?])', r' \1', newString)
+    newString = re.sub(r'([,.!;:?])', r' \1 ', newString)
 
     return newString.split()
 
@@ -165,15 +165,4 @@ pickle.dump( clean_data, open( cleanfilename, "wb" ) )
 
 print('File saved.')
 
-
-# In[35]:
-
-
-tp = pickle.load( open( cleanfilename, "rb" ) )
-
-
-# In[37]:
-
-
-tp
 
