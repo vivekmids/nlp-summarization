@@ -50,30 +50,6 @@ def return_summary(x):
     reference =  [item for item in gen_summary if (item!="." and item!="")] 
     return(reference)
 
-#####
-# example of what to do for the rouge metric 
-##### 
-
-#ex = [return_decode(item) for item in x_test]
-#ex2 = [return_summary(item) for item in y_test]
-#test_ex = pd.DataFrame({'gen_summary':ex})
-#test_ex2 = pd.DataFrame({'ref_summary': ex2})
-#testset = pd.concat([test_ex, test_ex2], axis=1)
-#recall_col = testset.apply(lambda x: rouge_n_sentence_level(x['gen_summary'], x['ref_summary'], 1)[0], axis=1)
-#prec_col = testset.apply(lambda x: rouge_n_sentence_level(x['gen_summary'], x['ref_summary'], 1)[1], axis=1)
-#f1_col = testset.apply(lambda x: rouge_n_sentence_level(x['gen_summary'], x['ref_summary'], 1)[2], axis=1)
-
-
-
-
-# -----------------------------------------------------------# 
-
-# Everything below this line is not super necessary, but nice to have in case we want to show results 
-# via pretty print 
-
-
-
-
 # Other useful links to keep in mind: 
 # https://stackoverflow.com/questions/38045290/text-summarization-evaluation-bleu-vs-rouge
 
@@ -96,6 +72,38 @@ def calc_indiv_rouge(id_text, text_df, headline_df, rouge_n):
     recall, precision, rouge = rouge_n_sentence_level(candidate, reference, rouge_n)
     # rouge is actually an f-score of the recall and precision 
     return(recall, precision, rouge)
+
+############
+# Example of how-to-use
+############ 
+
+# -- chunkholder: range from 0 to 10,000 in steps of 100 
+#chunkholder = list(chunks(range(0, 10000), 100))
+
+#result = []
+#for chunk in chunkholder: 
+##    -- change the function return_decode to whatever function you need (i.e. beam search)
+#    decode_machine_summary = [return_decode(item) for item in x_test[chunk]]
+##    -- for beamsearch, I used: decode_machine_summary = [beam_decode_sequence(item).split(' ') for item in x_test[chunk]]
+#    decode_ref_summary = [return_summary(item) for item in y_test[chunk]]
+#    testset = pd.concat([pd.Series(decode_machine_summary), pd.Series(decode_ref_summary)], axis=1)
+#    testset.columns = ['gen_summary','ref_summary']
+#    testset['rouge_cols']=testset.apply(lambda x: rouge_n_sentence_level(x['gen_summary'], x['ref_summary'], 1), axis=1)
+#    allrouge = testset['rouge_cols'].apply(pd.Series)
+#    allrouge.columns = ['recall','precision','f1score']
+#    final = pd.concat([testset,allrouge],axis=1) 
+#    result.append(final)
+
+#result_df = pd.concat(result).reset_index(drop=True) #this holds the decoded sequences up to 10,000
+
+#cumulative_list=list(range(100,10100,100))
+#cumulative_avg = []
+#for i in cumulative_list: 
+#    -- calculate the average from every 100 chunk (i.e. 0 to 100, 0 to 200, 0 to 300, etc)
+#    temp = result_df.loc[0:i,'recall':'f1score'].apply(lambda x: np.nanmean(x), axis=0)
+#    cumulative_avg.append({'recall': temp['recall'],'precision': temp['precision'],'f1score': temp['f1score']})
+
+#cumulative_avg_df = pd.DataFrame(cumulative_avg) # This holds the cumulative sample averages up to 10,000
 
 #############
 # Evaluation print-out example 
