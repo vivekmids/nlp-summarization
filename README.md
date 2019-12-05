@@ -1,24 +1,24 @@
-## Rough brainstorm of plan: 
+## W266 Fall 2019 Final Project by Vivek Agarwal and Vivian Lu 
 
-1. Preprocessing of wikihowsep.csv (found https://github.com/mahnazkoupaee/WikiHow-Dataset)
-    * status = DONE 
-2. Working out input of sequences with word embeddings + padding + unknown vocabulary
-    * status = DONE
-3. Baseline model of basic encoder (4 stacked LSTM) + decoder (4 stacked LSTM). Need to figure out attention layer and if beam search is necessary/time permits 
-    * status = Not yet started 
-4. Train / figure out (3). This will need a .py file somewhere to save the model and also observe history of scores. 
-    * status = Not yet started
-5. Anticipated number of models we could do once we figure out an automated way to do (3) and (4)
-    * basic encoder-decoder with GlOve embeddings
-    * basic encoder-decoder with Gl0ve embeddings + bidirectional 
+Slides can be accessed here: https://docs.google.com/presentation/d/1LTS-ZPZ5xNE7DFB-dNvVn-K2taopyWybQA2cc8NjUQk/edit?usp=sharing
 
-## Reference: 
-1. Glove embeddings (https://nlp.stanford.edu/projects/glove/) - for now, using glove.42B.300d.zip
-2. google drive (https://drive.google.com/drive/folders/1kg8nuksdN4cDS306k_UDIIUqRgzk9qe5?usp=sharing) for the pre-processed wikihowSep.csv (includes train/cv/test separation)
+## Abstract: 
 
-## Current GPU set-up 
-1. Vivian's GPU on GCP has tensorflow 1.14 on it. May update as needed 
-2. IBM 
+Abstractive summarization--while still a challenging task in the NLP field--has primarily been conducted on the CNN/Daily Mail dataset. Due to the reporting style of most news articles, abstractive summarization for the CNN/Daily Mail dataset typically only requires the first paragraph of the entire article to perform relatively well. This paper seeks to perform a similar abstractive summarization (headlines) on the WikiHow dataset, a task that requires longer comprehension of multiple paragraphs.
 
-## Paper: 
-1. https://arxiv.org/pdf/1512.01712.pdf
+# Main Contents of Repo 
+1. *[Document name]* - Final Project Paper submitted 
+2. *preparedata.py* - Preprocessing script for WikiHowSep.csv 
+3. *w266_common* - A directory containing useful functions borrowed from W266 homework assignments for preprocessing. 
+4. *forward* - A directory containing the training code for forward models, and the inference code for decoding sentences after training. 
+5. *forward400* - Similar to item [4] above, but reflecting different parameters. 
+6. *backward* A directory containing the training code for backward models, and the inference code for decoding sentences after training. 
+7. *backwards20epochs* - Similar to item [5] above, but reflecting different parameters. 
+8. *rmsprop* - A directory containing the training and inference code for forwards and backwards models but with RMSProp optimizers (items [4] through [6] all used Adam optimizers). 
+9. *beam_search.py* - Code for implementing beam search 
+10. *metrics.py* - Code borrowed from https://github.com/neural-dialogue-metrics/rouge to implement ROUGE calculations
+11. *bleu_rouge_functions.py* - Code for calculating specific evaluation metrics 
+12. *Error_Analysis.ipynb* - Code for analyzing errors in our abstractive summarizations. 
+
+# Other contents in Repo worth tracking: 
+    * Exploratory data analysis work was done in PreProcessing_wikihowsep.ipynb, PreProcessing_wikihowsep_vivek.ipynb
