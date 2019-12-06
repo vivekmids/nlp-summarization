@@ -7,7 +7,7 @@ Slides can be accessed here: https://docs.google.com/presentation/d/1LTS-ZPZ5xNE
 Abstractive summarization--while still a challenging task in the NLP field--has primarily been conducted on the CNN/Daily Mail dataset. Due to the reporting style of most news articles, abstractive summarization for the CNN/Daily Mail dataset typically only requires the first paragraph of the entire article to perform relatively well. This paper seeks to perform a similar abstractive summarization (headlines) on the WikiHow dataset, a task that requires longer comprehension of multiple paragraphs.
 
 # Main Contents of Repo 
-1. **[Document name]** - Final Project Paper submitted 
+1. **W266 Fall 2019 Final Project Paper by Vivek Agarwal, Vivian Lu** - Final Project Paper submitted 
 2. **preparedata.py** - Preprocessing script for WikiHowSep.csv 
 3. **w266_common** - A directory containing useful functions borrowed from W266 homework assignments for preprocessing. 
 4. **forward** - A directory containing the training code for forward models, and the inference code for decoding sentences after training. 
